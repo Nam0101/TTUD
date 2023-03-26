@@ -1,0 +1,86 @@
+#include<iostream>
+using namespace std;
+
+#define P 1000000007
+#define MAX 1000000
+
+int n;
+int a[MAX];
+int mh[MAX];
+int tg[MAX];
+int to[MAX];
+
+int mymod(int a, int b)
+{
+    if(a >= 0)  return a %  b;
+    int c = (-a) %  b;
+    return b - c;
+}
+
+
+int addmod(int x, int y)
+{
+    x = mymod(x, P);
+    y = mymod(y, P);
+    int z = P - x;
+    if(y < z) return x + y;
+    return y - z;
+}
+void input()
+{
+    cin >> n;
+    for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n - 1; i++) cin >> mh[i];
+}
+int mulmod(int a, int b)
+{
+    if(b == 1) return a % P;
+    if(b%2 == 0)
+    {
+        int c = mulmod(a, b/2);
+        return addmod(c, c);
+    }
+    else {
+        int c = mulmod(a, b/2);
+        c = addmod(c, c);
+        return addmod(a, c);
+    }
+}
+void solve()
+{
+    int m = 0;
+    int  i = 0;
+    int k = -1;
+    while (i < n)
+    {
+        int j = i;
+        int f = a[j];
+        while(j < n-1)
+        {
+            if(mh[j] !=  2) break;
+            f = mulmod(f, a[j+1]);
+            j++;
+        }
+        k++;
+        tg[k] = f;
+        to[k] = mh[j];
+        i = j + 1;
+    }
+
+    int rs = tg[0];
+    for(i = 0; i < k; i++)
+    {
+        if(to[i] ==  0) {
+            rs = addmod(rs, -tg[i+1]);
+        }
+        else {
+            rs = addmod(rs, tg[i + 1]);
+        }
+    }
+    cout << rs;
+}
+int main()
+{
+    input();
+    solve();
+}

@@ -1,0 +1,56 @@
+#define MAX 30
+int n, b;
+int a[MAX];
+int x[MAX];
+int s;
+int _count;
+int t;
+
+void input() {
+	cin >> n >> b;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a[i];
+	}
+}
+
+
+void solution() {
+	if (s == t)
+		_count++;
+}
+
+void TRY(int k) {
+	for (int i = k; i < n; i++)
+	{
+		if (s < t) {
+
+			s += x[i];
+			if (s >= t) 
+				solution();
+			else
+				TRY(i + 1);
+			s -= x[i];
+		}
+	}
+}
+
+
+
+int main() {
+	input();
+	int tong = 0;
+	for (int i = 0; i < n; i++)
+	{
+		tong += a[i];
+	}
+	t = tong - b;
+	x[0] = 0;
+	for (int i = 1; i < n; i++) {
+		x[i] = 2*a[i];
+	}
+	_count = 0;
+	s = 0;
+	TRY(0);
+	cout << _count / 2;
+}

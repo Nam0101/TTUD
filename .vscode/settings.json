@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.asm": "mips",
+        "ostream": "cpp",
+        "fstream": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "new": "cpp",
+        "sstream": "cpp",
+        "typeinfo": "cpp"
+    }
+}
